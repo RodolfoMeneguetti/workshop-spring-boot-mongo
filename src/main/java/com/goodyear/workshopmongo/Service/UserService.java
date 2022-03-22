@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.goodyear.workshopmongo.ServiceException.ObjectNotFoundException;
 import com.goodyear.workshopmongo.domain.User;
+import com.goodyear.workshopmongo.dto.UserDTO;
 import com.goodyear.workshopmongo.repository.UserRepository;
 
 @Service
@@ -23,5 +24,13 @@ public class UserService {
 	public User findById(String id) {
 		Optional<User> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
+	}
+	
+	public User insert(User obj) {
+		return repo.insert(obj);
+	}
+	
+	public User fromDTO(UserDTO objDTO) {
+		return new User (objDTO.getId(),objDTO.getName(),objDTO.getEmail());
 	}
 }
